@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lucas Yukio Shizuno">
+<meta name="keywords" content="Análise de Dados, Exemplo">
+
+<title>CE329: Trabalho Final: Powerlifting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Exemplo_simples_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exemplo_simples_files/libs/quarto-html/quarto.js"></script>
+<script src="Exemplo_simples_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exemplo_simples_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exemplo_simples_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exemplo_simples_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exemplo_simples_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exemplo_simples_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exemplo_simples_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exemplo_simples_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Outros formatos</h2><ul><li><a href="..\Exemplo_simples.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">CE329: Trabalho Final: Powerlifting</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autor</div>
+  <div class="quarto-title-meta-heading">Afiliação</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lucas Yukio Shizuno </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Universidade Federal do Paraná
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 de novembro de 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Resumo</div>
+    <p>Inclua aqui um resumo sobre o seu projeto. Esse resumo deve ter entre 150 e 200 palavras. Deve apresentar a motivação para o estudo, uma breve introdução, a metodologia aplicada, resultados e uma breve conclusão. Não deve conter referências bibliográficas.</p>
+  </div>
+</div>
+
+</header>
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>O powerlifting é um esporte de força que envolve a competição em três movimentos principais: agachamento (squat), supino (bench press) e levantamento terra (deadlift). O objetivo do powerlifting é levantar a maior quantidade de peso possível em cada um desses três movimentos.</p>
+<p>Agachamento (Squat): Neste movimento, o atleta segura uma barra com peso posicionada nas costas e se agacha até que os quadris fiquem abaixo do nível dos joelhos e, em seguida, retorna à posição inicial. A técnica correta, estabilidade e força nas pernas e na região lombar são essenciais para um agachamento bem-sucedido.</p>
+<p>Supino (Bench Press): No supino, o atleta deita em um banco plano e levanta uma barra com peso em direção ao teto, abaixando-a até que toque o peito e, em seguida, a levanta novamente. A força nos músculos peitorais, ombros e tríceps é crucial para um bom desempenho no supino.</p>
+<p>Levantamento Terra (Deadlift): O levantamento terra envolve o atleta levantando uma barra do chão até ficar em pé, com os quadris e joelhos estendidos. Diferentemente dos outros dois movimentos, não há nenhuma pausa ou ponto intermediário durante o movimento. A força nas costas, pernas e aperto das mãos são aspectos importantes para um levantamento terra eficaz.</p>
+<p>As competições de powerlifting são organizadas em categorias de peso, gênero e idade, e os competidores têm três tentativas para realizar cada movimento, com o objetivo de levantar a maior quantidade de peso possível. O peso máximo levantado em cada movimento é somado para determinar o total do competidor.</p>
+<p>O objetivo desse trabalho é, utilizando a base de dados disponibilizada no site Kaggle, <code>openpowerlifting.csv</code>, treinar e otimizar um modelo que será utilizado para fazer previsões sobre o sucesso de levantadores de powerlifting com base em suas características.</p>
+<p>Por exemplo, dado um atleta de 26 anos, 63kg, 1,72cm, etc., ele seria capaz de levantar 150kg no levantamento terra? Explorando a importância relativa de diferentes características para entender quais fatores influenciam mais o sucesso de predição do modelo.</p>
+</section>
+<section id="materiais-e-métodos" class="level2">
+<h2 class="anchored" data-anchor-id="materiais-e-métodos">Materiais e Métodos</h2>
+<p>A fim de analisar o montante de cada empréstimo, iniciamos lendo os banco de dados <code>Emprestimos.csv</code>. Os dados foram coletados por Shizuno em 19/10/2023 <span class="citation" data-cites="nr">(<a href="#ref-nr" role="doc-biblioref">Arvidsson, 2023</a>)</span>.</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">require</span>(data.table)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">require</span>(magrittr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">require</span>(readr)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">require</span>(scales)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">require</span>(car)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>Emprestimos <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"C:/Users/lucas/Documents/GitHub/trabalho-final-lucasshizuno/99_dados/00_raw/Emprestimos.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="variáveis">Variáveis</h3>
+<p>Com o objetivo de facilitar o entendimento das variáveis presentes no banco de dados, apresentamos as colunas com uma breve descrição na tabela abaixo:</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>id</td>
+<td>Identificador único para cada empréstimo</td>
+</tr>
+<tr class="even">
+<td>member_id</td>
+<td>Identificador único para cada mutuário</td>
+</tr>
+<tr class="odd">
+<td>loan_amnt</td>
+<td>O valor do empréstimo solicitado pelo mutuário</td>
+</tr>
+<tr class="even">
+<td>funded_amnt</td>
+<td>O valor total comprometido para esse empréstimo no momento em que foi financiado</td>
+</tr>
+<tr class="odd">
+<td>funded_amnt_inv</td>
+<td>O valor total comprometido por investidores para esse empréstimo no momento em que foi financiado</td>
+</tr>
+<tr class="even">
+<td>term</td>
+<td>O número de pagamentos do empréstimo, em meses Os valores podem ser 36 ou 60</td>
+</tr>
+<tr class="odd">
+<td>int_rate</td>
+<td>A taxa de juros do empréstimo</td>
+</tr>
+<tr class="even">
+<td>installment</td>
+<td>As parcelas mensais ($) devidas pelo mutuário se o empréstimo for financiado</td>
+</tr>
+<tr class="odd">
+<td>emp_length</td>
+<td>O tempo de emprego do mutuário</td>
+</tr>
+<tr class="even">
+<td>home_ownership</td>
+<td>O status de propriedade de moradia fornecido pelo mutuário</td>
+</tr>
+<tr class="odd">
+<td>annual_inc</td>
+<td>A renda anual auto-relatada fornecida pelo mutuário durante o registro</td>
+</tr>
+<tr class="even">
+<td>verification_status</td>
+<td>O status de verificação da renda e outros detalhes do mutuário</td>
+</tr>
+<tr class="odd">
+<td>issue_d</td>
+<td>O mês em que o empréstimo foi financiado</td>
+</tr>
+<tr class="even">
+<td>loan_status</td>
+<td>O status atual do empréstimo</td>
+</tr>
+<tr class="odd">
+<td>purpose</td>
+<td>O objetivo do empréstimo</td>
+</tr>
+<tr class="even">
+<td>zip_code</td>
+<td>O código postal do mutuário</td>
+</tr>
+<tr class="odd">
+<td>addr_state</td>
+<td>O estado fornecido pelo mutuário na aplicação de empréstimo</td>
+</tr>
+<tr class="even">
+<td>dti</td>
+<td>A relação dívida/receita (DTI), calculada usando os pagamentos mensais totais do mutuário nas obrigações de dívida totais (excluindo hipoteca e o empréstimo solicitado) dividida pela renda mensal auto-relatada do mutuário</td>
+</tr>
+<tr class="odd">
+<td>delinq_2yrs</td>
+<td>O número de vezes que o mutuário ficou com atraso de mais de 30 dias em um pagamento nos últimos 2 anos</td>
+</tr>
+<tr class="even">
+<td>earliest_cr_line</td>
+<td>A data de abertura da primeira linha de crédito relatada do mutuário</td>
+</tr>
+<tr class="odd">
+<td>inq_last_6mths</td>
+<td>O número de consultas feitas por credores nos últimos 6 meses pelo mutuário</td>
+</tr>
+<tr class="even">
+<td>mths_since_last_delinq</td>
+<td>O número de meses desde a última vez que o mutuário ficou em atraso em um pagamento</td>
+</tr>
+<tr class="odd">
+<td>open_acc</td>
+<td>O número de linhas de crédito abertas no arquivo de crédito do mutuário</td>
+</tr>
+<tr class="even">
+<td>pub_rec</td>
+<td>O número de registros públicos prejudiciais ao mutuário</td>
+</tr>
+<tr class="odd">
+<td>revol_bal</td>
+<td>Saldo total de crédito rotativo</td>
+</tr>
+<tr class="even">
+<td>revol_util</td>
+<td>Taxa de utilização da linha rotativa, indicando a quantidade de crédito que o mutuário está usando em relação a todo o crédito rotativo disponível</td>
+</tr>
+<tr class="odd">
+<td>total_acc</td>
+<td>O número total de linhas de crédito atualmente no arquivo de crédito do mutuário</td>
+</tr>
+<tr class="even">
+<td>total_pymnt</td>
+<td>Pagamentos totais recebidos até a data para o valor total financiado</td>
+</tr>
+<tr class="odd">
+<td>total_pymnt_inv</td>
+<td>Pagamentos totais recebidos até a data para a parte do valor total financiado pelos investidores</td>
+</tr>
+<tr class="even">
+<td>total_rec_prncp</td>
+<td>Principal recebido até a data</td>
+</tr>
+<tr class="odd">
+<td>total_rec_int</td>
+<td>Juros recebidos até a data</td>
+</tr>
+<tr class="even">
+<td>last_pymnt_d</td>
+<td>O mês em que o último pagamento foi recebido</td>
+</tr>
+<tr class="odd">
+<td>last_pymnt_amnt</td>
+<td>O valor total do último pagamento recebido</td>
+</tr>
+<tr class="even">
+<td>next_pymnt_d</td>
+<td>A data programada para o próximo pagamento</td>
+</tr>
+<tr class="odd">
+<td>last_credit_pull_d</td>
+<td>O mês mais recente em que a plataforma de empréstimo puxou informações de crédito para este empréstimo</td>
+</tr>
+<tr class="even">
+<td>repay_fail</td>
+<td>Uma variável que indica o sucesso ou falha no pagamento do empréstimo, provavelmente como uma bandeira binária (por exemplo, 1 para falha, 0 para sucesso)</td>
+</tr>
+</tbody>
+</table>
+<p>…</p>
+</section>
+</section>
+<section id="resultados-e-discussão" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-e-discussão">Resultados e Discussão</h2>
+<section id="limpeza-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="limpeza-dos-dados">Limpeza dos Dados</h3>
+<p>Primeiramente iniciamos com a verificação de valores faltantes na base de dados</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Verificando os valores vazio em cada coluna</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>missing_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(Emprestimos, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span>
+<span id="cb2-3"><a href="#cb2-3"></a>missing_percentage <span class="ot">&lt;-</span> (missing_values <span class="sc">/</span> <span class="fu">nrow</span>(Emprestimos)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>missing_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">Missing_Values =</span> missing_values,</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="at">Percentage =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(missing_percentage, <span class="dv">2</span>), <span class="st">"%"</span>)  <span class="co"># Add "%" symbol</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># Mostrando os valores vazios em cada coluna</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">print</span>(missing_data)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       Missing_Values Percentage
+V1                                  0         0%
+id                                  0         0%
+member_id                           0         0%
+loan_amnt                           1         0%
+funded_amnt                         1         0%
+funded_amnt_inv                     1         0%
+term                                0         0%
+int_rate                            0         0%
+installment                         1         0%
+emp_length                          0         0%
+home_ownership                      0         0%
+annual_inc                          2      0.01%
+verification_status                 0         0%
+issue_d                             0         0%
+loan_status                         0         0%
+purpose                             0         0%
+zip_code                            0         0%
+addr_state                          0         0%
+dti                                 0         0%
+delinq_2yrs                         1         0%
+earliest_cr_line                    0         0%
+inq_last_6mths                      1         0%
+mths_since_last_delinq          24363     63.31%
+open_acc                            1         0%
+pub_rec                             1         0%
+revol_bal                           4      0.01%
+revol_util                         59      0.15%
+total_acc                           1         0%
+total_pymnt                         1         0%
+total_pymnt_inv                     1         0%
+total_rec_prncp                     1         0%
+total_rec_int                       1         0%
+last_pymnt_d                       71      0.18%
+last_pymnt_amnt                     1         0%
+next_pymnt_d                    35097     91.21%
+last_credit_pull_d                  3      0.01%
+repay_fail                          0         0%</code></pre>
+</div>
+</div>
+<p>Devido a grande frequência de valores faltantes para as colunas “mths_since_last_delinq” e “next_pymnt_d”, ambas serão removidas da análise</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Removendo as colunas com mais de 10% de valores vazios</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>Emprestimos <span class="ot">&lt;-</span> Emprestimos <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">select</span>(<span class="sc">-</span>mths_since_last_delinq, <span class="sc">-</span>next_pymnt_d)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Verificando os valores presente na coluna "repay_fail"</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>(<span class="fu">unique</span>(Emprestimos<span class="sc">$</span>repay_fail))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 0</code></pre>
+</div>
+</div>
+</section>
+<section id="montante-do-empréstimo" class="level3">
+<h3 class="anchored" data-anchor-id="montante-do-empréstimo">Montante do Empréstimo</h3>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Alterando loan status para algo mais amigável</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>Emprestimos <span class="ot">&lt;-</span> Emprestimos <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">mutate</span>(<span class="at">repay_status =</span> <span class="fu">ifelse</span>(repay_fail <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Não Pago"</span>, <span class="st">"Pago"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Criando o gráfico para mostrar o número de emprestimos por status da coluna "repay_fail"</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>bar_graph <span class="ot">&lt;-</span> Emprestimos <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">group_by</span>(repay_status) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">mutate</span>(<span class="at">repay_status =</span> <span class="fu">factor</span>(repay_status, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pago"</span>, <span class="st">"Não Pago"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> repay_status, <span class="at">y =</span> n, <span class="at">fill =</span> repay_status)) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="at">title =</span> <span class="st">"Número de Empréstimos por loan_status"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13"></a>    <span class="at">x =</span> <span class="st">"Status"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14"></a>    <span class="at">y =</span> <span class="st">""</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Não Pago"</span> <span class="ot">=</span> <span class="st">"gray60"</span>, <span class="st">"Pago"</span> <span class="ot">=</span> <span class="st">"gray90"</span>)) <span class="sc">+</span> </span>
+<span id="cb7-17"><a href="#cb7-17"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-19"><a href="#cb7-19"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),  </span>
+<span id="cb7-20"><a href="#cb7-20"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb7-21"><a href="#cb7-21"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb7-22"><a href="#cb7-22"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  </span>
+<span id="cb7-23"><a href="#cb7-23"></a>    <span class="at">plot.margin =</span> ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="at">l =</span> <span class="dv">30</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">30</span>, <span class="at">t =</span> <span class="dv">10</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)  <span class="co"># Explicitly use ggplot2::margin</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">format</span>(n, <span class="at">big.mark =</span> <span class="st">"."</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-27"><a href="#cb7-27"></a></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="fu">print</span>(bar_graph)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Exemplo_simples_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>subset_df <span class="ot">&lt;-</span> Emprestimos[Emprestimos<span class="sc">$</span>repay_status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Não Pago'</span>, <span class="st">'Pago'</span>), ]</span>
+<span id="cb8-2"><a href="#cb8-2"></a>boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_df, <span class="fu">aes</span>(<span class="at">x =</span> loan_amnt, <span class="at">y =</span> repay_status)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">shape =</span> <span class="dv">23</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"salmon"</span>)<span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot de Loan Amount por status de Pagamento"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>histogram <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(subset_df, <span class="fu">aes</span>(<span class="at">x =</span> loan_amnt, <span class="at">fill =</span> repay_status)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">500</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="at">title =</span> <span class="st">"Histograma de Loan Amount por status de Pagamento"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="at">x =</span> <span class="st">"Status"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="at">y =</span> <span class="st">""</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Não Pago"</span> <span class="ot">=</span> <span class="st">"gray60"</span>, <span class="st">"Pago"</span> <span class="ot">=</span> <span class="st">"gray90"</span>)) <span class="sc">+</span> </span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">theme</span>(</span>
+<span id="cb8-16"><a href="#cb8-16"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),  </span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb8-18"><a href="#cb8-18"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb8-19"><a href="#cb8-19"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  </span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">l =</span> <span class="dv">30</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">30</span>, <span class="at">t =</span> <span class="dv">10</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)  </span>
+<span id="cb8-21"><a href="#cb8-21"></a>  )</span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="fu">print</span>(boxplot)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Exemplo_simples_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">print</span>(histogram)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Exemplo_simples_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Podemos observar no boxplot uma diferença visual entre a média de empréstimos que foram pagos com os que não foram pagos</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Calculando a Média </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>mean_by_category <span class="ot">&lt;-</span> <span class="fu">tapply</span>(subset_df<span class="sc">$</span>loan_amnt, subset_df<span class="sc">$</span>repay_status, <span class="cf">function</span>(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co"># Print para cada status</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">print</span>(mean_by_category)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Não Pago     Pago 
+11835.24 10962.52 </code></pre>
+</div>
+</div>
+<p>Assumimos então a hipótese nula: “Não há variância entre montante do empréstimo (loan amount) quando comparamos Pago e Não Pago”. Caso o p-valor seja menor que 0.05, podemos rejeitar a hipótese <span class="citation" data-cites="textbook">(<a href="#ref-textbook" role="doc-biblioref">Moore, 2016</a>)</span></p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>subset_df <span class="ot">&lt;-</span> Emprestimos[Emprestimos<span class="sc">$</span>repay_status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Pago'</span>, <span class="st">'Não Pago'</span>), ]</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># Perform an F-test for equality of variances</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>variance_test <span class="ot">&lt;-</span> <span class="fu">var.test</span>(loan_amnt <span class="sc">~</span> repay_status, <span class="at">data =</span> subset_df)</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># Print the test result</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="fu">print</span>(variance_test)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  loan_amnt by repay_status
+F = 1.1954, num df = 5828, denom df = 32649, p-value &lt; 2.2e-16
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 1.149505 1.243797
+sample estimates:
+ratio of variances 
+          1.195393 </code></pre>
+</div>
+</div>
+<p>A média para empréstimos que foram pagos Como 2.2e-16 &lt; 0.05 rejeitamos que “Não há variância entre montante do empréstimo (loan amount) quando comparamos Pago e Não Pago” sugerindo que há uma variância significativa.</p>
+</section>
+<section id="modelo-de-previsão" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-de-previsão">Modelo de Previsão</h3>
+<p>Utilizando random forest buscamos entender como as variáveis “annual_inc”, “loan_amnt”, “int_rate”, “installment” e “total_pymnt_inv” predizem a variável “repay_fail” e com qual acurácia <span class="citation" data-cites="textbookml">(<a href="#ref-textbookml" role="doc-biblioref">Gareth James, 2013</a>)</span></p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(caret)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"annual_inc"</span>, <span class="st">"loan_amnt"</span>, <span class="st">"int_rate"</span>, <span class="st">"installment"</span>, <span class="st">"total_pymnt_inv"</span>, <span class="st">"repay_fail"</span>) </span>
+<span id="cb14-4"><a href="#cb14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5"></a>data <span class="ot">&lt;-</span> <span class="fu">select</span>(Emprestimos, selected_features)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a>data<span class="sc">$</span>repay_fail <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>repay_fail)</span>
+<span id="cb14-9"><a href="#cb14-9"></a>formula <span class="ot">&lt;-</span> repay_fail<span class="sc">~</span>.</span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="fu">head</span>(data)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   annual_inc loan_amnt int_rate installment total_pymnt_inv repay_fail
+1:          0         0     0.00        0.00            0.00          1
+2:      20004      2500    13.98       85.42         3075.29          0
+3:      59000      5000    15.95      175.67         2948.76          1
+4:      53796      7000     9.91      225.58         8082.39          0
+5:      30000      2000     5.42       60.32         2161.66          0
+6:     675048      3600    10.25      116.59         4206.03          0</code></pre>
+</div>
+</div>
+<p>Dividindo a base de dados em 70% treino e 30% teste</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(data<span class="sc">$</span>repay_fail, <span class="at">p =</span> <span class="fl">0.7</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>train_data <span class="ot">&lt;-</span> data[index, ]</span>
+<span id="cb16-4"><a href="#cb16-4"></a>test_data <span class="ot">&lt;-</span> data[<span class="sc">-</span>index, ]</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="fu">head</span>(train_data)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   annual_inc loan_amnt int_rate installment total_pymnt_inv repay_fail
+1:          0         0     0.00        0.00            0.00          1
+2:      59000      5000    15.95      175.67         2948.76          1
+3:      53796      7000     9.91      225.58         8082.39          0
+4:      30000      2000     5.42       60.32         2161.66          0
+5:     675048      3600    10.25      116.59         4206.03          0
+6:      77736      8000     6.03      243.49         8724.97          0</code></pre>
+</div>
+</div>
+<p>Aplicando o random forest</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(formula, <span class="at">data =</span> train_data, <span class="at">ntree =</span> <span class="dv">100</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> test_data)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>confusion_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(predictions, test_data<span class="sc">$</span>repay_fail)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(confusion_matrix)) <span class="sc">/</span> <span class="fu">sum</span>(confusion_matrix)</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="fu">cat</span>(<span class="st">"Accuracy:"</span>, accuracy, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.9169193 </code></pre>
+</div>
+</div>
+<p>A acurácia obtida foi elevada o que confere mair confiança na predição do pagamento dos empréstimo</p>
+</section>
+</section>
+<section id="conclusões-e-persperctivas-futuras" class="level2">
+<h2 class="anchored" data-anchor-id="conclusões-e-persperctivas-futuras">Conclusões e Persperctivas Futuras</h2>
+<p>Em conclusão, a análise dos dados de inadimplência de empréstimos proporcionou insights valiosos sobre a relação entre o montante do empréstimo e a probabilidade de pagamento. Observamos diferenças significativas na distribuição do montante entre empréstimos pagos e não pagos, sugerindo que esta variável pode ser um indicador relevante na avaliação de riscos de inadimplência.</p>
+<p>A aplicação do modelo Random Forest para prever a variável “repay_fail” demonstrou uma acurácia substancial, indicando a eficácia do modelo na classificação dos pagamentos. A inclusão de variáveis como renda anual, taxa de juros e valor total pago pelos investidores contribuiu para a robustez do modelo.</p>
+<p>Como perspectivas futuras, a inclusão de mais variáveis na base de dados relacionadas com o perfil dos clientes, a construção de um Shiny App utilizando o modelo de classificação construído e treinamento do modelo com variáveis mais complexas e relevantes.</p>
+</section>
+<section id="referências" class="level2 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-nr" class="csl-entry" role="listitem">
+Arvidsson, J. (2023). Loan Defaults. <em>Kaggle</em>. <a href="https://www.kaggle.com/datasets/joebeachcapital/loan-default/data">https://www.kaggle.com/datasets/joebeachcapital/loan-default/data</a>
+</div>
+<div id="ref-textbookml" class="csl-entry" role="listitem">
+Gareth James, T. H., Daniela Witten. (2013). <em>An Introduction to Statistical Learning</em>. <a href="https://www.statlearning.com/">https://www.statlearning.com/</a>
+</div>
+<div id="ref-textbook" class="csl-entry" role="listitem">
+Moore, D. S. (2016). <em>Practice of Statistics</em>. <a href="https://www.amazon.com/Introduction-Practice-Statistics-David-Moore/dp/1319013384">https://www.amazon.com/Introduction-Practice-Statistics-David-Moore/dp/1319013384</a>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
